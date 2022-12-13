@@ -88,6 +88,10 @@ public:
 	}
 
 private:
+	void GetCanvasSize(int &width, int &height) override
+	{
+		GetSize(&width, &height);
+	}
 	int m_activeVSyncState = -1;
 	//wxGLContext* m_context = nullptr;
 };

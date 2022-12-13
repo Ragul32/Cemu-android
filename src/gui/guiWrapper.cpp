@@ -48,6 +48,9 @@ void gui_create()
 #endif
 }
 
+boost::signals2::signal<void(int&, int&)> gui_getMainCanvasSize;
+boost::signals2::signal<void(int&, int&)> gui_getPadCanvasSize;
+
 WindowInfo& gui_getWindowInfo()
 {
 	return g_window_info;

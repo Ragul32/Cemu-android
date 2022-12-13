@@ -20,7 +20,10 @@ public:
 	~VulkanCanvas();
 
 private:
-
+	void GetCanvasSize(int &width,int &height) override
+	{
+		GetSize(&width, &height);
+	}
 	void OnPaint(wxPaintEvent& event);
 	void OnResize(wxSizeEvent& event);
 };

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <atomic>
-
+#include <boost/signals2.hpp>
 #if BOOST_OS_LINUX
 #include "xcb/xproto.h"
 #include <gdk/gdkkeysyms.h>
@@ -125,6 +125,9 @@ WindowInfo& gui_getWindowInfo();
 void gui_updateWindowTitles(bool isIdle, bool isLoading, double fps);
 void gui_getWindowSize(int& w, int& h);
 void gui_getPadWindowSize(int& w, int& h);
+extern boost::signals2::signal<void(int&, int&)> gui_getMainCanvasSize;
+extern boost::signals2::signal<void(int&, int&)> gui_getPadCanvasSize;
+
 void gui_getWindowPhysSize(int& w, int& h);
 void gui_getPadWindowPhysSize(int& w, int& h);
 double gui_getWindowDPIScale();
