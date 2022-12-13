@@ -287,9 +287,9 @@ void VPADController::update_motion(VPADStatus_t& status)
 
 		int w, h;
 		if (pad_view)
-			gui_getPadWindowPhysSize(w, h);
+			gui_getPadCanvasSize(w, h);
 		else
-			gui_getWindowPhysSize(w, h);
+			gui_getMainCanvasSize(w, h);
 
 		float wx = mousePos.x / w;
 		float wy = mousePos.y / h;

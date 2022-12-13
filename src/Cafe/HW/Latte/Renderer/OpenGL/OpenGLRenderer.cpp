@@ -556,9 +556,9 @@ void OpenGLRenderer::DrawBackbufferQuad(LatteTextureView* texView, RendererOutpu
 	{
 		int windowWidth, windowHeight;
 		if (padView)
-			gui_getPadWindowPhysSize(windowWidth, windowHeight);
+			gui_getMainCanvasSize(windowWidth, windowHeight);
 		else
-			gui_getWindowPhysSize(windowWidth, windowHeight);
+			gui_getPadCanvasSize(windowWidth, windowHeight);
 		g_renderer->renderTarget_setViewport(0, 0, windowWidth, windowHeight, 0.0f, 1.0f);
 		g_renderer->ClearColorbuffer(padView);
 	}

@@ -10,21 +10,23 @@ VulkanCanvas::VulkanCanvas(wxWindow* parent, const wxSize& size, bool is_main_wi
 	Bind(wxEVT_PAINT, &VulkanCanvas::OnPaint, this);
 	Bind(wxEVT_SIZE, &VulkanCanvas::OnResize, this);
 
+	WindowHandleInfo *canvas;
 	if(is_main_window)
 	{
-		WindowHandleInfo& canvasMain = gui_getWindowInfo().canvas_main;
-		gui_initHandleContextFromWxWidgetsWindow(canvasMain, this);
-		#if BOOST_OS_LINUX
-		if(canvasMain.backend == WindowHandleInfo::Backend::WAYLAND)
-		{	
-			m_subsurface = std::make_unique<wxWlSubsurface>(this);
-			canvasMain.surface = m_subsurface->getSurface();
-		}
-		#endif
+		canvas = &gui_getWindowInfo().canvas_main;
+
 	}
 	else
-		gui_initHandleContextFromWxWidgetsWindow(gui_getWindowInfo().canvas_pad, this);
+		canvas = &gui_getWindowInfo().canvas_pad;
 
+	gui_initHandleContextFromWxWidgetsWindow(*canvas, this);
+	#if BOOST_OS_LINUX
+	if(canvas->backend == WindowHandleInfo::Backend::WAYLAND)
+	{	
+		m_subsurface = std::make_unique<wxWlSubsurface>(this);
+		canvas->surface = m_subsurface->getSurface();
+	}
+	#endif
 	cemu_assert(g_vulkan_available);
 
 	try

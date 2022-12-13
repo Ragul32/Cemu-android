@@ -2595,11 +2595,11 @@ void VulkanRenderer::RecreateSwapchain(bool mainWindow, bool skipCreate)
 	if (mainWindow)
 	{
 		ImGui_ImplVulkan_Shutdown();
-		gui_getWindowPhysSize(size.x, size.y);
+		gui_getMainCanvasSize(size.x, size.y);
 	}
 	else
 	{
-		gui_getPadWindowPhysSize(size.x, size.y);
+		gui_getPadCanvasSize(size.x, size.y);
 	}
 
 	chainInfo.swapchainImageIndex = -1;
@@ -2629,9 +2629,9 @@ bool VulkanRenderer::UpdateSwapchainProperties(bool mainWindow)
 
 	int width, height;
 	if (mainWindow)
-		gui_getWindowSize(width, height);
+		gui_getMainCanvasSize(width, height);
 	else
-		gui_getPadWindowSize(width, height);
+		gui_getPadCanvasSize(width, height);
 	auto extent = chainInfo.getExtent();
 	if (width != extent.width || height != extent.height)
 		stateChanged = true;

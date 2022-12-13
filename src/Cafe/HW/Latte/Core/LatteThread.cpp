@@ -117,7 +117,7 @@ int Latte_ThreadEntry()
 {
 	SetThreadName("LatteThread");
 	sint32 w,h;
-	gui_getWindowPhysSize(w,h);
+	gui_getMainCanvasSize(w,h);
 
 	// imgui
 	ImGui::CreateContext();
