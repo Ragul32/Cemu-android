@@ -43,5 +43,11 @@
       "default-features": false,
       "features": [ "openssl" ]
     }
+  ],
+  "overrides": [
+      {
+          "name": "fmt",
+          "version": "10.0.0"
+      }
   ]
 }

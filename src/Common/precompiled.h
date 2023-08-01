@@ -16,14 +16,15 @@
 
 #define SDL_MAIN_HANDLED
 
-// #if FMT_VERSION > 80102
-// // restore generic formatter for enum (class) to underlying. We currently utilize this for HLE call logging
-// template <typename Enum, std::enable_if_t<std::is_enum<Enum>::value, int> = 0>
-// constexpr auto format_as(Enum e) noexcept -> std::underlying_type<Enum> {
-//   return static_cast<std::underlying_type<Enum>>(e);
-// }
-// #endif
-
+template <typename Enum>
+requires std::is_enum_v<Enum>
+struct fmt::formatter<Enum> : fmt::formatter<underlying_t<Enum>>
+{
+	auto format(const Enum& e, format_context& ctx) const
+	{
+		return formatter<underlying_t<Enum>>::format(fmt::underlying(e), ctx);
+	}
+};
 // arch defines
 
 #if defined(__x86_64__) || defined(_M_X64) || defined(_M_AMD64)

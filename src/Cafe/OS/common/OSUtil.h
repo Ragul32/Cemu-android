@@ -142,7 +142,7 @@ static std::tuple<Args...> cafeExportBuildArgTuple(PPCInterpreter_t* hCPU, R(fn)
 
 template<typename T>
 using _CAFE_FORMAT_ARG = std::conditional_t<std::is_pointer_v<T>,
-	std::conditional_t<std::is_same_v<T, char*> || std::is_same_v<T, const char*>, T, MEMPTR<T>>, T>;
+	std::conditional_t<std::is_same_v<T, char*>, const char*, std::conditional_t<std::is_same_v<T, const char*>, T, MEMPTR<T>>>, T>;
 
 template <typename R, typename... Args>
 static auto cafeExportBuildFormatTuple(PPCInterpreter_t* hCPU, R(fn)(Args...))

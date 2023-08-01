@@ -230,3 +230,13 @@ static_assert(std::is_copy_constructible_v<uint32be>);
 static_assert(std::is_move_constructible_v<uint32be>);
 static_assert(std::is_copy_assignable_v<uint32be>);
 static_assert(std::is_move_assignable_v<uint32be>);
+
+template <typename T>
+struct fmt::formatter<betype<T>> : formatter<T>
+{
+	template <typename FormatContext>
+	auto format(const betype<T>& v, FormatContext& ctx) const
+	{
+		return formatter<T>::format(v.value(), ctx);
+	}
+};

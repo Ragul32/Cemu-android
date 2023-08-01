@@ -908,7 +908,7 @@ void _emitOperandInputCode(LatteDecompilerShaderContext* shaderContext, LatteDec
 			{
 				char floatAsStr[32];
 				size_t floatAsStrLen = fmt::format_to_n(floatAsStr, 32, "{:#}", *(float*)&constVal).size;
-				cemu_assert_debug(floatAsStrLen >= 3); // shortest possible form is "0.0"
+				cemu_assert_debug(floatAsStrLen >= 2); // shortest possible form is "0."
 				src->add(std::string_view(floatAsStr, floatAsStrLen));
 			}
 			else
