@@ -3,6 +3,7 @@
 #include "Cafe/Filesystem/fsc.h"
 #include "config/CemuConfig.h" // for CafeConsoleRegion. Move to NCrypto?
 #include "TitleId.h"
+#include "AppType.h"
 #include "ParsedMetaXml.h"
 
 enum class CafeTitleFileType
@@ -122,9 +123,7 @@ public:
 		if(!IsValid())
 			return false;
 		uint32 appType = GetAppType();
-		if(appType == 0)
-			return false; // not a valid app_type, but handle this in case some users use placeholder .xml data with fields zeroed-out
-		return ((appType>>24)&0x80) == 0;
+		return appType == APP_TYPE::DRC_FIRMWARE || appType == APP_TYPE::DRC_TEXTURE_ATLAS || appType == APP_TYPE::VERSION_DATA_TITLE;
 	}
 
 	// API which requires parsed meta data or cached info
@@ -149,7 +148,7 @@ public:
 		return m_parsedMetaXml;
 	}
 
-	std::string GetPrintPath() const; // formatted path for log writing
+	std::string GetPrintPath() const; // formatted path including type and WUA subpath. Intended for logging and user-facing information
 	std::string GetInstallPath() const; // installation subpath, relative to storage base. E.g. "usr/title/.../..." or "sys/title/.../..."
 
 	static std::string GetUniqueTempMountingPath();
